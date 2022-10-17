@@ -17,6 +17,11 @@ namespace ProductsCatalogService.Model.Data
             db.SaveChanges();
         }
 
+        public List<Product> GetAllProductsByAvailability()
+        {
+            return db.Products.Where(p => p.InStock == true).ToList();
+        }
+
         public List<Product> GetAllProductsByBrand(string brand)
         {
             return db.Products.Where(p => p.Brand == brand).ToList();
@@ -35,6 +40,21 @@ namespace ProductsCatalogService.Model.Data
         public List<Product> GetAllProductsByCountry(string country)
         {
             return db.Products.Where(p => p.Country == country).ToList();
+        }
+
+        public List<Product> GetAllProductsByPrice(int price)
+        {
+            return db.Products.Where(p => p.Price <= price).ToList();
+        }
+
+        public Product GetCheapestProduct()
+        {
+            return db.Products.OrderByDescending(p => p.Price).LastOrDefault();
+        }
+
+        public Product GetCostliestProduct()
+        {
+            return db.Products.OrderByDescending(p => p.Price).FirstOrDefault();
         }
 
         public Product GetProduct(int id)

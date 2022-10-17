@@ -11,7 +11,10 @@ namespace ProductsCatalogService.Model.Data
         List<Product> GetAllProductsByBrand(string brand);
         List<Product> GetAllProductsByColor (string color);
         List<Product> GetAllProductsByCountry (string country);
-
+        List<Product> GetAllProductsByPrice (int price);
+        List<Product> GetAllProductsByAvailability ();
+        Product GetCostliestProduct();
+        Product GetCheapestProduct();
         void DeleteProduct(int id); 
         void UpdateProduct(Product product);
         void CreateProduct(Product product);
