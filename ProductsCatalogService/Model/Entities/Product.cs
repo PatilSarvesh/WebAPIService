@@ -6,6 +6,7 @@ namespace ProductsCatalogService.Model.Entities
     {
         public int ProductId { get; set; }
         [Required]
+        
         public string Name { get; set; }
         public int Price { get; set; }
         public string Catagory { get; set; }

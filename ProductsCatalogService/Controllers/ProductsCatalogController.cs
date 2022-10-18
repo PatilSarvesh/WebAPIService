@@ -5,7 +5,7 @@ using ProductsCatalogService.Model.Entities;
 
 namespace ProductsCatalogService.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class ProductsCatalogController : ControllerBase
     {
@@ -16,44 +16,81 @@ namespace ProductsCatalogService.Controllers
         }
 
         [Route("{id}")]
-        public Product GetProduct(int id)
+        public ActionResult<Product> GetProduct(int id)
         {
-            return repo.GetProduct(id);
+            var product = repo.GetProduct(id);
+            if(product == null) //if no data found 
+            {
+                //return 404
+                return NotFound();
+
+            }
+            //return 200 with data
+            return Ok(product);
         }
 
         //get products by color
         [Route("Color/{color}")]
-        public List<Product> GetAllProdcutsByColor(string color)
+        public ActionResult<List<Product>> GetAllProdcutsByColor(string color)
         {
-            return repo.GetAllProductsByColor(color);
+            var colors = repo.GetAllProductsByColor(color);
+            if(colors.Count == 0)
+            {
+                return NotFound();
+            }
+
+            return Ok(colors);
         }
 
         //get products by company
         [Route("Brand/{company}")]
-        public List<Product> GetAllProductsByBrand(string company)
+        public ActionResult<List<Product>> GetAllProductsByBrand(string company)
         {
-            return repo.GetAllProductsByBrand(company);
+            var companies = repo.GetAllProductsByBrand(company);
+            if(companies.Count == 0)
+            {
+                return NotFound();
+            }
+            return Ok(companies);
         }
 
         //get productrs by catagory
         [Route("Catagory/{catagory}")]
-        public List<Product> GetAllProductsByCatagory(string catagory)
+        public ActionResult<List<Product>> GetAllProductsByCatagory(string catagory)
         {
-            return repo.GetAllProductsByCatagory(catagory);
+            var catagories = repo.GetAllProductsByCatagory(catagory);
+
+            if(catagories.Count == 0)
+            {
+                return NotFound();
+            }
+            return Ok(catagories);
         }
 
         //get productrs by Country
         [Route("Country/{country}")]
-        public List<Product> GetAllProductsByCountry(string country)
+        public ActionResult<List<Product>> GetAllProductsByCountry(string country)
         {
-            return repo.GetAllProductsByCountry(country);
+            var countries = repo.GetAllProductsByCountry(country);
+
+            if (countries.Count == 0)
+            {
+                return NotFound();
+            }
+            return Ok(countries);
         }
 
         //get productrs by Price
         [Route("Price/{price}")]
-        public List<Product> GetAllProductsByPrice(int price)
+        public ActionResult<List<Product>> GetAllProductsByPrice(int price)
         {
-            return repo.GetAllProductsByPrice(price);
+            var prices = repo.GetAllProductsByPrice(price);
+
+            if (prices.Count == 0)
+            {
+                return NotFound();
+            }
+            return Ok(prices);
         }
 
         //get productrs by Costliest
@@ -72,9 +109,15 @@ namespace ProductsCatalogService.Controllers
 
         //get productrs by Availability
         [Route("Avail")]
-        public List<Product> GetAvailProduct()
+        public ActionResult<List<Product>> GetAvailProduct()
         {
-            return repo.GetAllProductsByAvailability();
+            //var prices = repo.GetAllProductsByPrice();
+
+            //if (prices.Count == 0)
+            //{
+            //    return NotFound();
+            //}
+            //return Ok(prices);
         }
     }
 }
