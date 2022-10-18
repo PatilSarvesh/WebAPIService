@@ -117,7 +117,7 @@ namespace ProductsCatalogService.Controllers
             //{
             //    return NotFound();
             //}
-            //return Ok(prices);
+            return Ok(prices);
         }
     }
 }
